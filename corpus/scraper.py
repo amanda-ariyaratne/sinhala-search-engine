@@ -17,17 +17,6 @@ for page_id in tqdm(range(26)):
         link = person.find("a")["href"]
         links.append(link)   
 
-# with open('artist_links.txt', 'w') as f:
-#     for link in links:
-#         f.write("%s\n" % link)
-
-
-
-# with open('artist_links.txt', 'r') as f:
-#     links = f.readlines()
-
-#base_url = "https://translate.google.com/translate?hl=&sl=en&tl=si&u=https%3A%2F%2Ffilms.lk%2F"
-
 for i in tqdm(range(len(links))):
     if i < 164 or i > 173:
         continue
@@ -147,3 +136,14 @@ for i in tqdm(range(len(links))):
     person_jsn = json.dumps(person)
     with open('artists.json', 'a') as f:
         f.write("%s,\n" % person_jsn)
+
+# with open('artist_links.txt', 'w') as f:
+#     for link in links:
+#         f.write("%s\n" % link)
+
+
+
+# with open('artist_links.txt', 'r') as f:
+#     links = f.readlines()
+
+#base_url = "https://translate.google.com/translate?hl=&sl=en&tl=si&u=https%3A%2F%2Ffilms.lk%2F"

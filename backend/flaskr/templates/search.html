@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>ES Search</title>
+
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='modules/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='modules/fontawesome/css/all.min.css') }}">
+
+    <!-- CSS Libraries -->
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='modules/bootstrap-daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='modules/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='modules/jquery-selectric/selectric.css') }}">
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='modules/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+
+    <style>
+        .select2-container {
+            min-width: 100% !important;
+        }
+    </style>
+</head>
+
+<body class="layout-3" style="background-color: #b9bee6;">
+    <div id="app">
+        <div class="main-wrapper container">
+            <!-- Main Content -->
+            <div class="main-content" style="padding-top: 30px">
+                <section class="section">
+                    <form method=POST>
+                        <div class="section-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-header" style="color: #343a40;">
+                                            <h3>කලාකරුවන්ගේ දත්ත සමුදාය සොයන්න (Search Artist Database)</h3>
+                                        </div>
+                                        <div class="card-body" style="padding-left: 100px; padding-right: 100px;">
+                                            <div class="form-group">
+                                                <div class="input-group mb-3">
+                                                    <input class="form-control" type="text" name="search-terms"
+                                                        placeholder="" aria-label="" value="{{ search_terms }}">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-primary" type="submit">
+                                                            <i class="fa fa-search"></i> සොයන්න
+                                                        </button>
+                                                        <button class="btn btn-primary" type="button"
+                                                            data-toggle="collapse" href="#collapseAdvanced"
+                                                            role="button" aria-expanded="false"
+                                                            aria-controls="collapseAdvanced">
+                                                            <i class="fa fa-chevron-down"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="collapse {{ show }}" id="collapseAdvanced">
+                                                <div class="form-group">
+                                                    <h6>සංකීර්ණ සෙවීම (Advanced Search)</h6>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="d-block">සෙවුම් වර්ගය (Search Type)</label>
+                                                    <div class="form-check">
+                                                        {% if search_type == "keyword" %}
+                                                        <input class="form-check-input" type="radio" name="search-type"
+                                                            value="keyword" checked>
+                                                        {% else %}
+                                                        <input class="form-check-input" type="radio" name="search-type"
+                                                            value="keyword">
+                                                        {% endif %}
+
+
+                                                        <label class="form-check-label" for="search-keyword">
+                                                            මූල පද මගින් සොයන්න (Search by keywords)
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        {% if search_type == "phrase" %}
+                                                        <input class="form-check-input" type="radio" name="search-type"
+                                                            value="phrase" checked>
+                                                        {% else %}
+                                                        <input class="form-check-input" type="radio" name="search-type"
+                                                            value="phrase">
+                                                        {% endif %}
+                                                        <label class="form-check-label" for="search-phrase">
+                                                            වාක්‍ය ඛණ්ඩයෙන් සොයන්න (Search by phrase)
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>භූමිකාවන් (Roles)</label>
+                                                    <select class="form-control select2" name="roles[]"
+                                                        id="multi-select" multiple="multiple">
+                                                        {% for role in all_roles %}
+                                                        {% if role["key"] in roles %}
+                                                        <option value="{{ role.key }}" selected>{{ role["key"] }}
+                                                        </option>
+                                                        {% else %}
+                                                        <option value="{{ role.key }}">{{ role["key"] }}</option>
+                                                        {% endif %}
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>චිත්‍රපට (Movies)</label>
+                                                    <input type="text" name="films" class="form-control"
+                                                        value="{{ films }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>සම්මාන (Awards)</label>
+                                                    <input type="text" name="awards" class="form-control"
+                                                        value="{{ awards }}">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% if spell_suggestion != "" %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header" style="padding-left: 100px; padding-right: 100px;">
+                                            <h4>ප්‍රතිඵල කිසිවක් හමු නොවීය</h4>
+                                        </div>
+                                        <div class="card-body" style="padding-left: 100px; padding-right: 100px;">
+                                            <p>ඔබ අදහස් කලේ {{ spell_suggestion }} ද?</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            {% for result in results %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h4>{{ result["_source"]["name"] }}</h4>
+                                            <div class="card-header-action">
+                                                <a data-collapse="#mycard-collapse-{{result['_source']['id']}}"
+                                                    class="btn btn-icon btn-info" data-toggle="collapse" href="#"
+                                                    aria-expanded="false">
+                                                    <i class="fas fa-plus"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="collapse" id="mycard-collapse-{{result['_source']['id']}}">
+                                            <div class="card-body">
+                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active"
+                                                            id="details-tab-{{result['_source']['id']}}"
+                                                            data-toggle="tab"
+                                                            href="#details-{{result['_source']['id']}}" role="tab"
+                                                            aria-controls="details" aria-selected="true">තොරතුරු</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="bio-tab-{{result['_source']['id']}}"
+                                                            data-toggle="tab" href="#bio-{{result['_source']['id']}}"
+                                                            role="tab" aria-controls="bio"
+                                                            aria-selected="false">විස්තරය</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="films-tab-{{result['_source']['id']}}"
+                                                            data-toggle="tab" href="#films-{{result['_source']['id']}}"
+                                                            role="tab" aria-controls="films"
+                                                            aria-selected="false">චිත්‍රපට</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="awards-tab-{{result['_source']['id']}}"
+                                                            data-toggle="tab" href="#awards-{{result['_source']['id']}}"
+                                                            role="tab" aria-controls="awards"
+                                                            aria-selected="false">සම්මාන</a>
+                                                    </li>
+                                                </ul>
+                                                <div class="tab-content" id="myTabContent">
+                                                    <div class="tab-pane fade active show"
+                                                        id="details-{{result['_source']['id']}}" role="tabpanel"
+                                                        aria-labelledby="details-tab">
+                                                        <p>සැබෑ නම : {{ result["_source"]["real_name"] }}</p>
+                                                        <p>උපත : {{ result["_source"]["birth"] }}</p>
+                                                        <p>විපත : {{ result["_source"]["death"] }}</p>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="bio-{{result['_source']['id']}}"
+                                                        role="tabpanel" aria-labelledby="bio-tab">
+                                                        {{ result["_source"]["bio"] }}
+                                                    </div>
+                                                    <div class="tab-pane fade" id="films-{{result['_source']['id']}}"
+                                                        role="tabpanel" aria-labelledby="films-tab">
+                                                        <ul>
+                                                            {% for film in result["_source"]["films"] %}
+                                                            <li>{{ film["title"]}} - {{ film["role"] }}</li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="awards-{{result['_source']['id']}}"
+                                                        role="tabpanel" aria-labelledby="awards-tab">
+                                                        <ul>
+                                                            {% for award in result["_source"]["awards"] %}
+                                                            <li>{{ award["title"]}} - {{ award["instituition"] }}</li>
+                                                            {% endfor %}
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="card-footer"></div> -->
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- General JS Scripts -->
+    <script src="{{ url_for('static', filename='modules/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/popper.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/tooltip.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/stisla.js') }}"></script>
+
+    <!-- JS Libraies -->
+    <script src="{{ url_for('static', filename='modules/cleave-js/dist/cleave.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/cleave-js/dist/addons/cleave-phone.us.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/jquery-pwstrength/jquery.pwstrength.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <script
+        src="{{ url_for('static', filename='modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
+    <script
+        src="{{ url_for('static', filename='modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
+    <script
+        src="{{ url_for('static', filename='modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='modules/jquery-selectric/jquery.selectric.min.js') }}"></script>
+
+    <!-- Page Specific JS File -->
+    <script>
+        $(document).ready(function () {
+            $("#multi-select").select2({ dropdownAutoWidth: true });
+        });
+
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            formData.set('roles[]', $("#multi-select").val())
+            // for (var value of formData.values()) {
+            //     console.log(value);
+            // }
+            let request = new XMLHttpRequest();
+            request.onreadystatechange = function () {
+                if (request.readyState == XMLHttpRequest.DONE) {
+                    document.open();
+                    document.write(request.responseText);
+                    document.close();
+                }
+            }
+            request.open("POST", "/search/");
+            request.send(formData);
+
+        });
+    </script>
+
+    <!-- Template JS File -->
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+</body>
+
+</html>

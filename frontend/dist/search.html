@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Layout &rsaquo; Top Navigation &mdash; Stisla</title>
+
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="assets/modules/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/modules/fontawesome/css/all.min.css">
+
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="assets/modules/bootstrap-daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="assets/modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
+    <link rel="stylesheet" href="assets/modules/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="assets/modules/jquery-selectric/selectric.css">
+    <link rel="stylesheet" href="assets/modules/bootstrap-timepicker/css/bootstrap-timepicker.min.css">
+    <link rel="stylesheet" href="assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <!-- Start GA -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-94034622-3');
+    </script>
+
+    <style>
+        .select2-container {
+            min-width: 100% !important;
+        }
+    </style>
+    <!-- /END GA -->
+</head>
+
+<body class="layout-3" style="background-color: #b9bee6;">
+    <div id="app">
+        <div class="main-wrapper container">
+
+            <!-- Main Content -->
+            <div class="main-content" style="padding-top: 30px">
+                <section class="section">
+                    <form>
+                        <div class="section-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-header" style="color: #343a40;">
+                                            <h3>කලාකරුවන්ගේ දත්ත සමුදාය සොයන්න (Search Artist Database)</h3>
+                                        </div>
+                                        <div class="card-body" style="padding-left: 100px; padding-right: 100px;">
+                                            <div class="form-group">
+                                                <div class="input-group mb-3">
+                                                    <input class="form-control" type="text" name="search-terms" placeholder=""
+                                                        aria-label="">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-primary" type="button">
+                                                            <i class="fa fa-search"></i> සොයන්න
+                                                        </button>
+                                                        <button class="btn btn-primary" type="button"
+                                                            data-toggle="collapse" href="#collapseAdvanced" role="button"
+                                                            aria-expanded="false" aria-controls="collapseAdvanced">
+                                                            <i class="fa fa-chevron-down"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group collapse" id="collapseAdvanced">
+                                                <h6>සංකීර්ණ සෙවීම (Advanced Search)</h6>
+                                            </div>
+                                            <div class="form-group collapse" id="collapseAdvanced">
+                                                <label class="d-block">සෙවුම් වර්ගය (Search Type)</label>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="search-type"
+                                                        value="keyword" checked>
+                                                    <label class="form-check-label" for="search-keyword">
+                                                        මූල පද මගින් සොයන්න (Search by keywords)
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="search-type"
+                                                        value="phrase">
+                                                    <label class="form-check-label" for="search-phrase">
+                                                        වාක්‍ය ඛණ්ඩයෙන් සොයන්න (Search by phrase)
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group collapse" id="collapseExample">
+                                                <label>භූමිකාවන් (Roles)</label>
+                                                <select class="form-control select2" name="roles" id="multi-select" multiple="">
+                                                    <option value="actor">නළුවන් (Actors)</option>
+                                                    <option value="actress">නිළියන් (Actresses)</option>
+                                                    <option value="director">අධ්‍යක්ෂකවරු (Directors)</option>
+                                                    <option value="producer">නිෂ්පාදකවරු (Producers)</option>
+                                                    <option value="writer">තිර රචකයින් (Script Writers)</option>
+                                                    <option value="cinematographer">ඡායාරූප ශිල්පීන් (Cinematographers)</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group collapse" id="collapseExample">
+                                                <label>චිත්‍රපට (Movies)</label>
+                                                <input type="text" name="films" class="form-control">
+                                            </div>
+                                            <div class="form-group collapse" id="collapseExample">
+                                                <label>සම්මාන (Awards)</label>
+                                                <input type="text" name="awards" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h4>රුක්මනී දේවි</h4>
+                                            <div class="card-header-action">
+                                                <a data-collapse="#mycard-collapse" class="btn btn-icon btn-info"
+                                                    data-toggle="collapse" href="#" aria-expanded="false">
+                                                    <i class="fas fa-plus"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="collapse" id="mycard-collapse">
+                                            <div class="card-body">
+                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" id="details-tab" data-toggle="tab"
+                                                            href="#details" role="tab" aria-controls="details"
+                                                            aria-selected="true">තොරතුරු</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="bio-tab" data-toggle="tab" href="#bio"
+                                                            role="tab" aria-controls="bio"
+                                                            aria-selected="false">විස්තරය</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="films-tab" data-toggle="tab"
+                                                            href="#films" role="tab" aria-controls="films"
+                                                            aria-selected="false">චිත්‍රපට</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="awards-tab" data-toggle="tab"
+                                                            href="#awards" role="tab" aria-controls="awards"
+                                                            aria-selected="false">සම්මාන</a>
+                                                    </li>
+                                                </ul>
+                                                <div class="tab-content" id="myTabContent">
+                                                    <div class="tab-pane fade active show" id="details" role="tabpanel"
+                                                        aria-labelledby="details-tab">
+                                                        <p>සැබෑ නම : ඩේසි රසම්මා ඩැනියල්ස්</p>
+                                                        <p>උපත : 1923 ජනවාරි 15</p>
+                                                        <p>විපත : 1978 ඔක්තෝම්බර් 28</p>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="bio" role="tabpanel"
+                                                        aria-labelledby="bio-tab">
+                                                        රුක්මනී දේවි (ජනවාරි 15, 1923 – සැප්තැම්බර් 25, 1978) යනු ශ්‍රී
+                                                        ලංකාවේ නයිටිංගේල් ලෙස නිතර ප්‍රශංසාවට පාත්‍ර වූ ශ්‍රී ලාංකික
+                                                        ගායිකාවක් සහ නිළියකි. වේදිකාව හරහා රිදී තිරයට පැමිණි ඇය මිය යන
+                                                        විට චිත්‍රපට 100 කට ආසන්න සංඛ්‍යාවක රඟපාලා තිබුණි. ගායනය කෙරෙහි
+                                                        සමාන ඇල්මක් මෙන්ම මධුර කටහඬක් ද තිබූ ඇය ග්‍රැමෆෝන් යුගයේ ශ්‍රී
+                                                        ලංකාවේ ප්‍රමුඛතම ගායිකාව වූවාය. ඇයගේ මරණයෙන් පසු 1979 සරසවි
+                                                        සම්මාන උළෙලේදී ඇයට සරසවිය ජීවිත කාලය සඳහා වූ රණ තිසර සම්මානය
+                                                        හිමි විය.
+                                                    </div>
+                                                    <div class="tab-pane fade" id="films" role="tabpanel"
+                                                        aria-labelledby="films-tab">
+                                                        <ul>
+                                                            <li>කඩවුණු පොරොන්දුව - ප්‍රධාන නිළිය</li>
+                                                            <li>කපටි ආරක්ෂකයා - ප්‍රධාන නිළිය</li>
+                                                            <li>වැරදුනු කුරුමානම - ප්‍රධාන නිළිය</li>
+                                                            <li>පෙරලෙන ඉරණම - ප්‍රධාන නිළිය</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="awards" role="tabpanel"
+                                                        aria-labelledby="awards-tab">
+                                                        <li>ජනප්‍රියම නිළිය - දිනමින රඟ මඩල 1956</li>
+                                                        <li>හොඳම නිළිය - 1වන දීපෂිකා සම්මාන උළෙල 1956</li>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="card-footer"></div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+// $(document).ready(function() { 
+//     $("#multi-select").select2({ dropdownAutoWidth: true });           
+// });
+    </script>
+
+
+    <!-- General JS Scripts -->
+    <script src="assets/modules/jquery.min.js"></script>
+    <script src="assets/modules/popper.js"></script>
+    <script src="assets/modules/tooltip.js"></script>
+    <script src="assets/modules/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="assets/modules/moment.min.js"></script>
+    <script src="assets/js/stisla.js"></script>
+
+    <!-- JS Libraies -->
+    <script src="assets/modules/cleave-js/dist/cleave.min.js"></script>
+    <script src="assets/modules/cleave-js/dist/addons/cleave-phone.us.js"></script>
+    <script src="assets/modules/jquery-pwstrength/jquery.pwstrength.min.js"></script>
+    <script src="assets/modules/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="assets/modules/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+    <script src="assets/modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+    <script src="assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+    <script src="assets/modules/select2/dist/js/select2.full.min.js"></script>
+    <script src="assets/modules/jquery-selectric/jquery.selectric.min.js"></script>
+
+    <!-- Page Specific JS File -->
+
+    <!-- Template JS File -->
+    <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/custom.js"></script>
+</body>
+
+</html>
